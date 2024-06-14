@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>论坛验证</title>
+    <link rel="stylesheet" href="../../static/css/register.css" th:href="@{/css/register.css}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css"><!--CSS-->
+</head>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.js"></script><!--JS-->
+<iframe src="/admin/background" frameborder="0" width="100%" height="100%" style="z-index: -999; width: 100%; position: fixed;"></iframe>
+<body>
+<div class="room">
+    <div class="shell">
+        <form method="Post" action="#" th:action="@{/admin/register}">
+            <div id="form-body">
+                <div id="welcome-lines">
+                    <div id="w-line-1">Hello,Lucy</div>
+                    <div id="w-line-2">LETS GO!</div>
+                </div>
+                <div id="input-area">
+                    <div class="f-inp">
+                        <input type="text" required="required" name="username" id="username">
+                        <span id="username1">username</span>
+                        <span id="usernameError"></span>
+                    </div>
+                    <div class="f-inp">
+                        <input type="password" required="required" name="password" id="password">
+                        <span id="password1">password</span>
+                        <span id="passwordError"></span>
+                    </div>
+                    <div class="f-inp">
+                        <input type="email" required="required" name="email" id="email" list="browsers" onkeyup="suggestion1()">
+                        <datalist id="browsers">
+                            <option  id="op1"></option>
+                            <option  id="op2"></option>
+                            <option  id="op3"></option>
+                        </datalist>
+                        <span id="email1">email</span>
+                        <span id="emailError"></span>
+                    </div>
+                    <div class="f-inp">
+                        <input type="text" required="required" name="nickname" id="nickname">
+                        <span id="nickname1">nickname</span>
+                        <span id="nicknameError"></span>
+                    </div>
+                </div>
+                <div id="submit-button-cvr">
+                    <button type="submit" id="submit-button">REGISTER</button>
+                </div>
+                <div id="forgot-pass">
+                    <a href="/admin" >Click to login</a>
+                </div>
+            </div>
+        </form>
+        <div class="modal" id="myModal" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-header">
+                    <h2 id="modalTitle">prompt</h2>
+                    <a href="#" class="btn-close" aria-hidden="true">×</a>
+                </div>
+                <div class="modal-body">
+                    <p id="modalText"></p>
+                </div>
+            </div>
+        </div>
+        <div id="img-box">
+            <img src="../../static/images/Register.JPG"  th:src="@{../images/Register.JPG}" alt="">
+        </div>
+    </div>
+</div>
+<script>
+    function suggestion1()
+    {
+        str=$("#email").val();
+        email3="@gmail.com";
+        $.ajax({
+            url:"/admin/register/"+str,
+            type:"GET",
+
+            complete:function () {
+                if(str.indexOf("@")===-1)
+                {
+                    $("#op1").replaceWith('<option id="op1" value='+'"'+str+email3+'"'+'>');
+                }
+            }
+        })
+    }
+
+    function suggestion(str)
+    {
+        var xmlhttp;
+        email1="@163.com";
+        email2="@qq.com";
+        email3="@gmail.com";
+        if (window.XMLHttpRequest)
+        {
+            // IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
+            xmlhttp=new XMLHttpRequest();
+        }
+        else
+        {
+            // IE6, IE5 浏览器执行代码
+            xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange=function()
+        {
+            if(str.indexOf("@")==-1)
+            {
+                $("#op1").replaceWith('<option id="op1" value='+'"'+str+email3+'"'+'>');
+                $("#op2").replaceWith('<option id="op2" value='+'"'+str+email2+'"'+'>');
+                $("#op3").replaceWith('<option id="op3" value='+'"'+str+email1+'"'+'>');
+            }
+        }
+        xmlhttp.open("GET","/admin/register/"+str,true);
+        xmlhttp.send();
+    }
+</script>
+
+<script type="text/javascript">
+    /*
+        1、用户名不能为空
+        2、用户名必须在6-14位
+        3、用户名和密码由数字和字母组成（正则表达式）
+        4、密码和确认密码一致，邮箱地址合法
+        5、统一失去焦点验证
+        6、错误信息统一在span标签中显示，要求字体12号，红色
+        7、文本框获得焦点，清除错误信息，如果文本框中数据不合法，要求清空文本框的value
+        8、最终表单所有项均合法方可提交
+     */
+    window.onload=function () {
+
+        var retVal = true;
+        var usernameElt = document.getElementById("username");
+        var usernameErrorSpan = document.getElementById("usernameError");
+        //用户名正则表达式
+        var usernameRegExp = /^[a-zA-Z0-9_-]{4,16}$/;
+
+        //用户名验证开始
+        //用户名验证,失去焦点验证
+        usernameElt.onblur = function () {
+            //判断username的value值是否为空
+            //清除前后空白
+            var username = usernameElt.value.trim();
+            usernameElt.value = username;
+            var usernameRetVal = usernameRegExp.test(username);
+            document.getElementById("username1").style.display="none";
+            //username不为空或全为空格开始验证
+            if (!(usernameElt.value == "")) {
+                if (!usernameRetVal) {
+                    //此处测试正确
+                    //获取用户名后文本对象
+                    usernameErrorSpan.innerHTML = "用户名不符合格式";
+                } else {
+                    //此处测试正确
+                    usernameErrorSpan.innerHTML = "";
+                }
+            } else {
+                usernameErrorSpan.innerHTML = "用户名不能为空"
+            }
+        }
+
+
+        //获取焦点，清除span内容
+        usernameElt.onfocus = function () {
+            //如果username等于一个或多个空格
+            //清空非法value,使用index函数，结果等于-1，则不含有该字符串
+            document.getElementById("username1").style.display="";
+            if (!(usernameErrorSpan.innerText.indexOf("不") == -1)) {
+                //如果usernameError不为空串,字符串中含有"不"清空value
+                usernameElt.value = "";
+            }
+            //清空span内容
+            usernameErrorSpan.innerText = "";
+        }
+
+
+        var retVal = true;
+        var nicknameElt = document.getElementById("nickname");
+        var nicknameErrorSpan = document.getElementById("nicknameError");
+        //用户名正则表达式
+        var nicknameRegExp = /^[a-zA-Z0-9_-]{4,16}$/;
+
+        //用户名验证开始
+        //用户名验证,失去焦点验证
+        nicknameElt.onblur = function () {
+            //判断username的value值是否为空
+            //清除前后空白
+            var nickname = nicknameElt.value.trim();
+            nicknameElt.value = nickname;
+            var nicknameRetVal = nicknameRegExp.test(nickname);
+            document.getElementById("nickname1").style.display="none";
+            //username不为空或全为空格开始验证
+            if (!(nicknameElt.value == "")) {
+                if (!nicknameRetVal) {
+                    //此处测试正确
+                    //获取用户名后文本对象
+                    nicknameErrorSpan.innerHTML = "昵称不符合格式";
+                } else {
+                    //此处测试正确
+                    nicknameErrorSpan.innerHTML = "";
+                }
+            } else {
+                nicknameErrorSpan.innerHTML = "昵称不能为空"
+            }
+        }
+
+
+        //获取焦点，清除span内容
+        nicknameElt.onfocus = function () {
+            //如果username等于一个或多个空格
+            //清空非法value,使用index函数，结果等于-1，则不含有该字符串
+            document.getElementById("nickname1").style.display="";
+            if (!(nicknameErrorSpan.innerText.indexOf("不") == -1)) {
+                //如果usernameError不为空串,字符串中含有"不"清空value
+                nicknameElt.value = "";
+            }
+            //清空span内容
+            nicknameErrorSpan.innerText = "";
+        }
+
+
+        //密码验证，失去焦点验证
+        var passwordElt = document.getElementById("password");
+        var passwordErrorSpan = document.getElementById("passwordError")
+        var passwordRegExp = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z\\W]{6,18}$/
+        //密码验证，失去焦点开始验证
+        passwordElt.onblur = function () {
+            document.getElementById("password1").style.display="none";
+            //去除前后空白
+            var password = passwordElt.value.trim();
+            passwordElt.value = password;
+            //password不为空开始验证
+            if (!(passwordElt.value == "")) {
+                //密码格式验证
+                var passwordRetVal = passwordRegExp.test(password);
+                if (passwordRetVal) {
+                    passwordErrorSpan.innerHTML = ""
+                } else {
+                    passwordErrorSpan.innerHTML = "密码格式不正确(数字和字母结合)"
+                }
+            } else {
+                //密码不能为空
+                passwordErrorSpan.innerHTML = "密码不能为空"
+            }
+        }
+
+
+        //密码获得焦点,密码获得焦点，重复密码span内容清空
+        passwordElt.onfocus = function () {
+            //清空非法value,使用index函数，结果等于-1，则不含有该字符串
+            document.getElementById("password1").style.display="";
+            if (!(passwordErrorSpan.innerText.indexOf("不") == -1)) {
+                //如果passwordErrorSpan不为空串,字符串中含有"不"清空value
+                passwordElt.value = "";
+            }
+            //清空span内容
+            passwordErrorSpan.innerText = "";
+        }
+
+
+        //邮箱地址验证
+        var emailElt = document.getElementById("email");
+        var emailErrorSpan = document.getElementById("emailError")
+        var emailRegExp = /^\w{3,12}@\w{1,5}\.[a-z]{2,3}$/;
+        //失去焦点时开始验证
+        emailElt.onblur = function () {
+            //去除邮箱地址前后空白
+            document.getElementById("email1").style.display="none";
+            var email = emailElt.value.trim();
+            emailElt.value = email;
+            var emailRetVal = emailRegExp.test(email);
+            //邮箱地址不为空时开始验证
+            if (!(emailElt.value == "")) {
+                //开始验证
+                if (emailRetVal) {
+                    emailErrorSpan.innerHTML = ""
+                } else {
+                    emailErrorSpan.innerHTML = "邮箱地址格式验证不成功"
+                }
+            } else {
+                emailErrorSpan.innerHTML = "邮箱地址不能为空"
+            }
+        }
+
+
+        //获得焦点时，邮箱格式不正确，则清空非法邮箱value值，并清除span内容
+        emailElt.onfocus = function () {
+            document.getElementById("email1").style.display="";
+            //indexOf方法结果为-1，则表示不含有该字符串
+            if (!(emailErrorSpan.innerText.indexOf("失") == -1)) {
+                //清空非法value值
+                emailElt.value = "";
+            }
+            //不管地址验证是否成功，在获取焦点后都要讲span中内容删除
+            emailErrorSpan.innerText = "";
+        }
+        // 提交表单
+        //获取表单队形
+        // var submitElt = document.getElementById("submitBtn");
+        // submitElt.onclick = function () {
+        // if(usernameErrorSpan.innerText==""){
+        //     usernameElt.focus();
+        //     usernameElt.blur();
+        // }
+        // if(passwordErrorSpan.innerText==""){
+        //     passwordElt.focus();
+        //     passwordElt.blur();
+        // }
+        // if (confirmPwdElt.innerText==""){
+        //     confirmPwdElt.focus();
+        //     confirmPwdElt.blur();
+        // }
+        // if (emailElt.innerText == "") {
+        //     emailElt.focus();
+        //     emailElt.blur();
+        // }
+        //     //表单提交
+        //     var userFromElt=document.getElementById("userFrom");
+        //     if(usernameElt.innerText.indexOf("不")==-1||passwordElt.innerText.indexOf("不")==-1||confirmPwdElt.innerText.indexOf("不")==-1||emailElt.innerText.indexOf("不")==1){
+        //         userFromElt.action="http://localhost:8080/jd/save"
+        //         //提交表单
+        //         userFromElt.submit();
+        //     }
+        // }
+    }
+</script>
+</body>
+
+</html>

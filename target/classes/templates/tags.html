@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="_fragments :: head(~{::title})">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0"><!--移动端的预览-->
+    <title>标签</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css"><!--CSS-->
+    <link rel="stylesheet" href="../static/css/me.css">
+</head>
+<!--------此页面为标签页面------------>
+<body class="q2">
+<!--导航-->
+<nav th:replace="_fragments::menu(3)" class="ui inverted attached segment  m-padded-tb-mini m-shadow-small" ><!--显示最上面黑边框效果-->
+    <div class="ui container">
+        <div class="ui inverted secondary  stackable menu">
+            <h2 class="ui teal  header item">动漫论坛</h2>
+            <a href="#" class="m-item item m-mobile-hide"><i class="home icon"></i>首页</a>
+            <a href="#" class="m-item item m-mobile-hide"><i class="idea icon"></i>分类</a>
+            <a href="#" class="active m-item item m-mobile-hide"><i class="tags icon"></i>标签</a>
+            <a href="#" class="m-item item m-mobile-hide"><i class="clone icon"></i>总帖子</a>
+            <a href="#" class="m-item item m-mobile-hide"><i class="info icon"></i>关于本站</a>
+            <div class="right m-item item m-mobile-hide">
+                <div class="ui icon inverted transparent  input">
+                    <input type="text" placeholder="搜索你感兴趣的帖子吧">
+                    <i class="search icon"></i>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <a href="#" class="ui menu toggle black icon button m-right-top m-mobile-show">
+        <i class="sidebar icon"></i>
+    </a>
+</nav>
+
+<!--中间部分-->
+<div class="  m-container-small m-padded-tb-large " style="opacity: 0.8">
+<!--    header-->
+    <div class="ui container">
+        <div class="ui top attached segment">
+            <div class="ui  middle aligned two column grid">
+                <div class="column">
+                    <h3 class="ui teal header">标签</h3>
+                </div><!--第一列-->
+                <div class=" right aligned column ">
+                    共<h3 class="ui orange header  m-inline-block  m-text-thin" th:text="${#arrays.length(tags)}"> 14 </h3>个标签
+                </div>
+
+            </div>
+        </div>
+        <div class="ui attached  segment m-padded-tb-large">
+            <a href="#" th:href="@{/tags/{id}(id=${tag.id})}" class="ui teal basic left pointing large label  m-margin-tb-tiny" th:classappend="${tag.id==activeTypeId} ? 'teal'" th:each="tag:${tags}">
+                <span th:text="${tag.name}">手办</span> <div class="detail" th:text="${#arrays.length(tag.cartoons)}">23</div>
+            </a>
+
+        </div>
+        <div class="ui teal segment">
+
+            <div class="ui padded vertical  attached  segment ">
+                <div class="ui   padded   segment m-padded-tb-big">
+                    <div class="ui middle aligned  mobile reversed  stackable    grid" th:each="cartoon:${page.content}">
+                        <div class="eleven wide column">
+                            <h3 class="ui header"><a href="#" th:href="@{/details/{id}(id=${cartoon.id})}"  target="_blank" class="m-block" th:text="${cartoon.title}">三玖天下第一</a></h3>
+                            <p class="m-text" th:text="|${cartoon.description}......|">中野三玖，漫画《五等分的新娘》及其衍生作品中登场的女主角之一。中野五姐妹的三女，表情很少，常常看不明白她心里面在想什么。但跟风太郎认识后也改变了。接触到风太郎总是体贴别人的温柔，
+                                三玖成为了会把喜怒哀乐表现出来、表情丰富的女孩。</p>
+                            <div class="ui  grid">
+                                <div class="row">
+                                    <div class="eleven wide column">
+                                        <div class="ui  horizontal  link list">
+                                            <div class="item">
+                                                <img src="../static/images/sanjiu.png" th:src="@{${cartoon.user.avatar}}"  height="100" width="100" alt="" class="ui avatar image" >
+                                                <div class="content"><a href="#" class="header" th:text="${cartoon.user.nickname}">中野三玖</a></div>
+                                            </div>
+                                            <div class="item">
+                                                <i class="calendar icon"></i><span th:text="${#dates.format(cartoon.updateTime,'yyyy-MM-dd')}">2021-1-9</span>
+                                            </div>
+                                            <div class="item">
+                                                <i class="eye icon"></i><span th:text="${cartoon.views}">9999</span>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                    <div class="right aligned five wide column">
+                                        <a href="#"  target="_blank" class="ui teal   basic label m-padded-tb-tiny"   th:text="${cartoon.type.name}">次元能量注入</a>
+                                    </div>
+                                </div>
+
+
+                                <div class="row">
+                                    <div class="column">
+
+                                        <a href="#" th:href="@{/tags/{id}(id=${tag.id})}" class="ui basic teal left pointing label m-padded-tb-mini m-text-thin" th:each="tag: ${cartoon.tags}" th:text="${tag.name}" >
+                                            周边
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="five wide column">
+                            <a href="#" th:href="@{/cartoon/{id}(id=${cartoon.id})}" target="_blank">
+                                <img src="../static/images/longmao0.jpg"   th:src="@{${cartoon.firstPicture}}" alt="" class="ui rounded image">
+                            </a>
+                        </div>
+                        <h6 style="color: #95958a">_____________________________________________________________________________________________________________________________________________________________________-</h6>
+                    </div>
+
+                </div>
+            </div>
+
+
+
+            <div class="ui bottom attached segment" th:if="${page.totalPages}>1">
+                <div class="ui  middle aligned two column grid">
+                    <div class="column">
+                        <a href="#" th:href="@{/(page=${page.number}-1)}"  th:unless="${page.first}"  class="ui mini  teal basic button">上一页</a>
+                    </div><!--第一列-->
+                    <div class=" right aligned column ">
+                        <a href="#" th:href="@{/(page=${page.number}+1)}"  th:unless="${page.last}"  class="ui mini  teal basic button">下一页</a>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<br>
+<br>
+<br>
+<!--底部-->
+<footer  th:replace="_fragments::footer"  class="ui inverted vertical segment  m-padded-tb-massive">
+
+
+</footer>
+
+
+<!--/*/<th:block th:replace="_fragments::script" >/*/-->
+<script src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.js"></script><!--JS-->
+<!--/*/</th:block>/*/-->
+<script>
+    $('.menu.toggle').click(function () {
+        $('.m-item').toggleClass('m-mobile-hide');
+    });
+
+
+</script>
+</body>
+</html>

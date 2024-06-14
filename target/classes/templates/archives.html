@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="_fragments :: head(~{::title})">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0"><!--移动端的预览-->
+    <title>全部帖子</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css"><!--CSS-->
+    <link rel="stylesheet" href="../static/css/me.css">
+</head>
+<!--------此页面为全部帖子页面------------>
+<body class="q3">
+<!--导航-->
+<nav th:replace="_fragments::menu(4)" class="ui inverted attached segment  m-padded-tb-mini m-shadow-small" ><!--显示最上面黑边框效果-->
+    <div class="ui container">
+        <div class="ui inverted secondary  stackable menu">
+            <h2 class="ui teal  header item">动漫论坛</h2>
+            <a href="#" class="m-item item m-mobile-hide"><i class="home icon"></i>首页</a>
+            <a href="#" class="m-item item m-mobile-hide"><i class="idea icon"></i>分类</a>
+            <a href="#" class="active m-item item m-mobile-hide"><i class="tags icon"></i>标签</a>
+            <a href="#" class="m-item item m-mobile-hide"><i class="clone icon"></i>总帖子</a>
+            <a href="#" class="m-item item m-mobile-hide"><i class="info icon"></i>关于本站</a>
+            <div class="right m-item item m-mobile-hide">
+                <div class="ui icon inverted transparent  input">
+                    <input type="text" placeholder="搜索你感兴趣的帖子吧">
+                    <i class="search icon"></i>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <a href="#" class="ui menu toggle black icon button m-right-top m-mobile-show">
+        <i class="sidebar icon"></i>
+    </a>
+</nav>
+
+<!--中间部分-->
+<div class="  m-container-small m-padded-tb-large " style="opacity: 0.8">
+<!--    header-->
+    <div class="ui container">
+        <div class="ui top attached padded segment">
+            <div class="ui  middle aligned two column grid">
+                <div class="column">
+                    <h3 class="ui teal header">全部帖子</h3>
+                </div><!--第一列-->
+                <div class=" right aligned column ">
+                    总共<h3 class="ui orange header  m-inline-block  m-text-thin" th:text="${cartoonCount}"> 14 </h3>个帖子
+                </div>
+
+            </div>
+        </div>
+
+        <th:block th:each="item:${archiveMap}">
+        <h3 class=" ui center aligned header" th:text="${item.key}">
+            2021
+        </h3>
+        <div class="ui fluid vertical menu">
+
+            <a href="#"  th:href="@{/details/{id}(id=${cartoon.id})}" target="_blank" class="item" th:each="cartoon:${item.value}">
+                <span>
+                <i class="teal circle icon"></i><span th:text="${cartoon.title}">三玖天下第一</span>
+                    <div class="ui teal basic left pointing label m-padded-tb-mini" th:text="${#dates.format(cartoon.updateTime,'MMMdd')}">1月14日</div>
+                </span>
+                <div class="ui orange basic left pointing label m-padded-tb-mini" th:text="${cartoon.flag}">一花</div>
+            </a>
+        </div>
+
+        </th:block>
+
+
+
+    </div>
+</div>
+
+<br>
+<br>
+<br>
+<!--底部-->
+<footer th:replace="_fragments::footer" class="ui inverted vertical segment  m-padded-tb-massive">
+
+</footer>
+
+<!--/*/<th:block th:replace="_fragments::script" >/*/-->
+<script src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.js"></script><!--JS-->
+<!--/*/</th:block>/*/-->
+<script>
+    $('.menu.toggle').click(function () {
+        $('.m-item').toggleClass('m-mobile-hide');
+    });
+
+
+</script>
+</body>
+</html>
