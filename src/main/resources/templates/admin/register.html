@@ -132,8 +132,6 @@
         8、最终表单所有项均合法方可提交
      */
     window.onload=function () {
-
-        var retVal = true;
         var usernameElt = document.getElementById("username");
         var usernameErrorSpan = document.getElementById("usernameError");
         //用户名正则表达式
@@ -298,34 +296,6 @@
             //不管地址验证是否成功，在获取焦点后都要讲span中内容删除
             emailErrorSpan.innerText = "";
         }
-        // 提交表单
-        //获取表单队形
-        // var submitElt = document.getElementById("submitBtn");
-        // submitElt.onclick = function () {
-        // if(usernameErrorSpan.innerText==""){
-        //     usernameElt.focus();
-        //     usernameElt.blur();
-        // }
-        // if(passwordErrorSpan.innerText==""){
-        //     passwordElt.focus();
-        //     passwordElt.blur();
-        // }
-        // if (confirmPwdElt.innerText==""){
-        //     confirmPwdElt.focus();
-        //     confirmPwdElt.blur();
-        // }
-        // if (emailElt.innerText == "") {
-        //     emailElt.focus();
-        //     emailElt.blur();
-        // }
-        //     //表单提交
-        //     var userFromElt=document.getElementById("userFrom");
-        //     if(usernameElt.innerText.indexOf("不")==-1||passwordElt.innerText.indexOf("不")==-1||confirmPwdElt.innerText.indexOf("不")==-1||emailElt.innerText.indexOf("不")==1){
-        //         userFromElt.action="http://localhost:8080/jd/save"
-        //         //提交表单
-        //         userFromElt.submit();
-        //     }
-        // }
     }
 </script>
 </body>

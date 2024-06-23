@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.springframework.org/schema/data/jaxb">
+
 <head th:replace="_fragments::head(~{::title})">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0"><!--移动端的预览-->
@@ -8,66 +9,68 @@
     <link rel="stylesheet" href="../../static/css/me.css ">
 </head>
 <!--------此页面为首页面------------>
+
 <body>
-<!--导航-->
-<nav th:replace="_fragments::menu(0)" class="ui inverted attached segment  m-padded-tb-mini" ><!--显示最上面黑边框效果-->
-    <div class="ui container">
-        <div class="ui inverted secondary  stackable menu">
-            <h2 class="ui teal  header item">动漫论坛</h2>
-            <a href="#" class="m-item item m-mobile-hide"><i class="home icon"></i>首页</a>
-            <a href="#" class="m-item item m-mobile-hide"><i class="idea icon"></i>分类</a>
-            <a href="#" class="m-item item m-mobile-hide"><i class="tags icon"></i>标签</a>
-            <a href="#" class="m-item item m-mobile-hide"><i class="clone icon"></i>总帖子</a>
-            <a href="#" class="m-item item m-mobile-hide"><i class="info icon"></i>关于本站</a>
-            <div class="right m-item item m-mobile-hide">
-                <div class="ui icon inverted transparent  input">
-                    <input type="text" placeholder="搜索你感兴趣的帖子吧">
-                    <i class="search icon"></i>
+    <!--导航-->
+    <nav th:replace="_fragments::menu(0)" class="ui inverted attached segment  m-padded-tb-mini"><!--显示最上面黑边框效果-->
+        <div class="ui container">
+            <div class="ui inverted secondary  stackable menu">
+                <h2 class="ui teal  header item">动漫论坛</h2>
+                <a href="#" class="m-item item m-mobile-hide"><i class="home icon"></i>首页</a>
+                <a href="#" class="m-item item m-mobile-hide"><i class="idea icon"></i>分类</a>
+                <a href="#" class="m-item item m-mobile-hide"><i class="tags icon"></i>标签</a>
+                <a href="#" class="m-item item m-mobile-hide"><i class="clone icon"></i>总帖子</a>
+                <a href="#" class="m-item item m-mobile-hide"><i class="info icon"></i>关于本站</a>
+                <div class="right m-item item m-mobile-hide">
+                    <div class="ui icon inverted transparent  input">
+                        <input type="text" placeholder="搜索你感兴趣的帖子吧">
+                        <i class="search icon"></i>
+                    </div>
+
                 </div>
 
             </div>
+        </div>
 
+        <a href="#" class="ui menu toggle black icon button m-right-top m-mobile-show">
+            <i class="sidebar icon"></i>
+        </a>
+    </nav>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <div class="m-container-small m-padded-tb-massive">
+        <div class="ui error message m-padded-tb-massive">
+            <ui class="contianer">
+                <h2>500</h2>
+                <p>对不起，您访问的资源不存在!</p>
+                <img src="../../static/images/500.jpg" alt="">
+
+            </ui>
         </div>
     </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <footer th:replace="_fragments::footer" class="ui inverted vertical segment  m-padded-tb-massive">
 
-    <a href="#" class="ui menu toggle black icon button m-right-top m-mobile-show">
-        <i class="sidebar icon"></i>
-    </a>
-</nav>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<div class="m-container-small m-padded-tb-massive">
-    <div class="ui error message m-padded-tb-massive">
-        <ui class="contianer">
-            <h2>500</h2>
-            <p>对不起，您访问的资源不存在!</p>
-            <img src="../../static/images/500.jpg" alt="">
-
-        </ui>
-    </div>
-</div>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<footer th:replace="_fragments::footer" class="ui inverted vertical segment  m-padded-tb-massive">
-
-</footer>
+    </footer>
 
 
 </body>
+
 </html>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.springframework.org/schema/data/jaxb">
+
 <head th:replace="_fragments :: head(~{::title})">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0"><!--移动端的预览-->
@@ -8,262 +9,282 @@
     <link rel="stylesheet" href="../static/css/me.css ">
 </head>
 <!--------此页面为首页面------------>
-<body class="qq">
-<!--导航-->
 
-<div  class="ui inverted attached segment  m-padded-tb-mini" ><!--显示最上面黑边框效果-->
-    <div class="ui container">
-        <div class="ui inverted secondary  stackable menu">
-            <h2 class="ui teal  header item">动漫论坛</h2>
-            <a href="#" th:href="@{/}" class="m-item item m-mobile-hide active"><i class="home icon"></i>首页</a>
-            <a href="#" th:href="@{/types/-1}" class="m-item item m-mobile-hide "><i class="idea icon"></i>分类</a>
-            <a href="#" th:href="@{/tags/-1}" class="m-item item m-mobile-hide"><i class="tags icon"></i>标签</a>
-            <a href="#" th:href="@{/archives}" class="m-item item m-mobile-hide" ><i class="clone icon"></i>总帖子</a>
-            <a href="#" th:href="@{/about}" class="m-item item m-mobile-hide"><i class="info icon"></i>关于本站</a>
-            <div class="right m-item item m-mobile-hide">
-                <form name="search" action="#" th:action="@{/search}" method="post" target="_blank">
-                    <div class="ui icon inverted transparent  input">
-                        <input type="text" name="query" placeholder="搜索你感兴趣的帖子吧" th:value="${query}">
-                        <i onclick="document.forms['search'].submit()"   class="search icon"></i>
-                    </div>
-                </form>
-            </div>
-            <div class=" right menu m-item m-mobile-hide ">
-                <div class="ui dropdown item">
-                    <div class="text">
-                        <img class="ui avatar image" src="https://unsplash.it/1000/400?image=1005" style="width: 30px;">
-                        <h5 class="ui orange header  m-inline-block  m-text-thin" th:text="${user.nickname}"></h5>
-                    </div>
-                    <i class="dropdown icon"></i>
-                    <!--   下拉图标-->
-                    <div class="menu">
-                        <a href="#" th:href="@{/admin/logout}" class="item">注销</a>
-                        <a href="#" th:href="@{/admin/updateuser}" class="item">个人中心</a>
+<body class="qq">
+    <!--导航-->
+
+    <div class="ui inverted attached segment  m-padded-tb-mini"><!--显示最上面黑边框效果-->
+        <div class="ui container">
+            <div class="ui inverted secondary  stackable menu">
+                <h2 class="ui teal  header item">动漫论坛</h2>
+                <a href="#" th:href="@{/}" class="m-item item m-mobile-hide active"><i class="home icon"></i>首页</a>
+                <a href="#" th:href="@{/types/-1}" class="m-item item m-mobile-hide "><i class="idea icon"></i>分类</a>
+                <a href="#" th:href="@{/tags/-1}" class="m-item item m-mobile-hide"><i class="tags icon"></i>标签</a>
+                <a href="#" th:href="@{/archives}" class="m-item item m-mobile-hide"><i class="clone icon"></i>总帖子</a>
+                <a href="#" th:href="@{/about}" class="m-item item m-mobile-hide"><i class="info icon"></i>关于本站</a>
+                <div class="right m-item item m-mobile-hide">
+                    <form name="search" action="#" th:action="@{/search}" method="post" target="_blank">
+                        <div class="ui icon inverted transparent  input">
+                            <input type="text" name="query" placeholder="搜索你感兴趣的帖子吧" th:value="${query}">
+                        </div>
+                    </form>
+                    <i onclick="document.forms['search'].submit()" class="search icon"></i>
+                </div>
+                <div class=" right menu m-item m-mobile-hide ">
+                    <div class="ui dropdown item">
+                        <div class="text">
+                            <img class="ui avatar image" src="https://unsplash.it/1000/400?image=1005"
+                                style="width: 30px;">
+                            <h5 class="ui orange header  m-inline-block  m-text-thin" th:text="${user.nickname}"></h5>
+                        </div>
+                        <i class="dropdown icon"></i>
+                        <!--   下拉图标-->
+                        <div class="menu">
+                            <a href="#" th:href="@{/admin/logout}" class="item">注销</a>
+                            <a href="#" th:href="@{/admin/updateuser}" class="item">个人中心</a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+
+        <a href="#" class="ui menu toggle black icon button m-right-top m-mobile-show">
+            <i class="sidebar icon"></i>
+        </a>
     </div>
-
-    <a href="#" class="ui menu toggle black icon button m-right-top m-mobile-show">
-        <i class="sidebar icon"></i>
-    </a>
-</div>
-<!--中间部分-->
-<div class="m-container  m-padded-tb-large">
-    <div class="ui container">
-        <div class="ui stackable grid" >
-            <!--页面整体左面布局--->
-            <div class="eleven wide column"  style="opacity: 0.8"><!--左边布局-->
-                <!--头部-->
-                <div class="ui top attached segment">
-                    <div class="ui  middle aligned two column grid">
-                        <div class="column">
-                            <h3 class="ui teal header">帖子</h3>
-                        </div><!--第一列-->
-                        <div class=" right aligned column ">
-                            共<h3 class="ui orange header  m-inline-block  m-text-thin" th:text="${page.totalElements}">  </h3>个帖子
-                            <div class="right menu">
-                                <a href="#"th:href="@{/input}"  class="item">我也要发贴</a>
+    <!--中间部分-->
+    <div class="m-container  m-padded-tb-large">
+        <div class="ui container">
+            <div class="ui stackable grid">
+                <!--页面整体左面布局--->
+                <div class="eleven wide column" style="opacity: 0.8"><!--左边布局-->
+                    <!--头部-->
+                    <div class="ui top attached segment">
+                        <div class="ui  middle aligned two column grid">
+                            <div class="column">
+                                <h3 class="ui teal header">帖子</h3>
+                            </div><!--第一列-->
+                            <div class=" right aligned column ">
+                                共<h3 class="ui orange header  m-inline-block  m-text-thin"
+                                    th:text="${page.totalElements}"> </h3>个帖子
+                                <div class="right menu">
+                                    <a href="#" th:href="@{/input}" class="item">我也要发贴</a>
+                                </div>
                             </div>
-                        </div>
 
+                        </div>
                     </div>
-                </div>
-                <!--中间内容text-->
-                <div class="ui padded vertical  attached  segment " id="index">
-                    <div class="ui   padded   segment m-padded-tb-big">
-                        <div class="ui middle aligned  mobile reversed  stackable    grid" th:each="cartoon:${page.content}">
-                            <div class="eleven wide column">
-                                <h3 class="ui header"><a href="#" th:href="@{/details/{id}(id=${cartoon.id})}"  target="_blank" class="m-block" th:text="${cartoon.title}">三玖天下第一</a></h3>
-                                <p class="m-text" th:text="|${cartoon.description}......|">中野三玖，漫画《五等分的新娘》及其衍生作品中登场的女主角之一。中野五姐妹的三女，表情很少，常常看不明白她心里面在想什么。但跟风太郎认识后也改变了。接触到风太郎总是体贴别人的温柔，
-                                    三玖成为了会把喜怒哀乐表现出来、表情丰富的女孩。</p>
-                                <div class="ui  grid">
-                                    <div class="eleven wide column">
-                                        <div class="ui  horizontal  link list">
-                                            <div class="item">
-                                                <img src="../static/images/sanjiu.png" th:src="@{${cartoon.user.avatar}}"  height="100" width="100" alt="" class="ui avatar image" >
-                                                <div class="content"><a href="#" class="header" th:text="${cartoon.user.nickname}">中野三玖</a></div>
-                                            </div>
-                                            <div class="item">
-                                                <i class="calendar icon"></i><span th:text="${#dates.format(cartoon.updateTime,'yyyy-MM-dd')}">2021-1-9</span>
-                                            </div>
-                                            <div class="item">
-                                                <i class="eye icon"></i> <span th:text="${cartoon.views}">9999</span>
+                    <!--中间内容text-->
+                    <div class="ui padded vertical  attached  segment " id="index">
+                        <div class="ui   padded   segment m-padded-tb-big">
+                            <div class="ui middle aligned  mobile reversed  stackable    grid"
+                                th:each="cartoon:${page.content}">
+                                <div class="eleven wide column">
+                                    <h3 class="ui header"><a href="#" th:href="@{/details/{id}(id=${cartoon.id})}"
+                                            target="_blank" class="m-block" th:text="${cartoon.title}">三玖天下第一</a></h3>
+                                    <p class="m-text" th:text="|${cartoon.description}......|">
+                                        中野三玖，漫画《五等分的新娘》及其衍生作品中登场的女主角之一。中野五姐妹的三女，表情很少，常常看不明白她心里面在想什么。但跟风太郎认识后也改变了。接触到风太郎总是体贴别人的温柔，
+                                        三玖成为了会把喜怒哀乐表现出来、表情丰富的女孩。</p>
+                                    <div class="ui  grid">
+                                        <div class="eleven wide column">
+                                            <div class="ui  horizontal  link list">
+                                                <div class="item">
+                                                    <img src="../static/images/sanjiu.png"
+                                                        th:src="@{${cartoon.user.avatar}}" height="100" width="100"
+                                                        alt="" class="ui avatar image">
+                                                    <div class="content"><a href="#" class="header"
+                                                            th:text="${cartoon.user.nickname}">中野三玖</a></div>
+                                                </div>
+                                                <div class="item">
+                                                    <i class="calendar icon"></i><span
+                                                        th:text="${#dates.format(cartoon.updateTime,'yyyy-MM-dd')}">2021-1-9</span>
+                                                </div>
+                                                <div class="item">
+                                                    <i class="eye icon"></i>
+                                                    <span th:text="${cartoon.views}">9999</span>
+                                                </div>
+
                                             </div>
 
                                         </div>
+                                        <div class="right aligned five wide column">
+                                            <a href="#" target="_blank" class="ui  teal basic label m-padded-tb-tiny"
+                                                th:text="${cartoon.type.name}">次元能量注入</a>
+                                        </div>
+                                    </div>
 
-                                    </div>
-                                    <div class="right aligned five wide column">
-                                        <a href="#"  target="_blank" class="ui  teal basic label m-padded-tb-tiny" th:text="${cartoon.type.name}">次元能量注入</a>
-                                    </div>
+                                </div>
+                                <div class="five wide column">
+                                    <a href="#" th:href="@{/cartoon/{id}(id=${cartoon.id})}" target="_blank">
+                                        <img src="../static/images/longmao0.jpg" th:src="@{${cartoon.firstPicture}}"
+                                            alt="" class="ui rounded image">
+                                    </a>
+                                </div>
+                                <h6 style="color: #95958a">
+                                    _______________________________________________________________________________________________________________________________________-
+                                </h6>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!--上下页底部-->
+                    <div class="ui bottom attached segment" th:if="${page.totalPages}>1">
+                        <div class="ui  middle aligned two column grid">
+                            <div class="column">
+                                <a href="#" th:href="@{/(page=${page.number}-1)}" th:unless="${page.first}"
+                                    class="ui mini  teal basic button">上一页</a>
+                            </div><!--第一列-->
+                            <div class=" right aligned column ">
+                                <a href="#" th:href="@{/(page=${page.number}+1)}" th:unless="${page.last}"
+                                    class="ui mini  teal basic button">下一页</a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <!--页面整体右面布局top--->
+                <div class="five wide column" style="opacity: 0.8" id="index1">
+                    <div class="ui segments">
+                        <div class="ui secondary segment">
+                            <div class="ui two column grid">
+                                <div class="column">
+                                    <i class="idea icon"></i>分类
                                 </div>
 
+                                <div class=" right aligned column">
+                                    <a href="#" target="_blank"> 详细信息<i class="angle double right icon "></i></a>
+                                </div>
                             </div>
-                            <div class="five wide column">
-                                <a href="#" th:href="@{/cartoon/{id}(id=${cartoon.id})}" target="_blank">
-                                    <img src="../static/images/longmao0.jpg"   th:src="@{${cartoon.firstPicture}}" alt="" class="ui rounded image">
+                        </div>
+
+                        <div class="ui teal segment">
+                            <div class="ui  fluid vertical menu">
+                                <a href="#" class="item" th:each="type:${types}">
+                                    <span th:text="${type.name}">周边</span>
+                                    <div class="ui left pointing teal basic label"
+                                        th:text="${#arrays.length(type.cartoons)}">13</div>
                                 </a>
-                            </div>
-                            <h6 style="color: #95958a">_______________________________________________________________________________________________________________________________________-</h6>
-                        </div>
 
-                    </div>
-                </div>
-                <!--上下页底部-->
-                <div class="ui bottom attached segment" th:if="${page.totalPages}>1">
-                    <div class="ui  middle aligned two column grid">
-                        <div class="column">
-                            <a href="#" th:href="@{/(page=${page.number}-1)}"  th:unless="${page.first}"  class="ui mini  teal basic button">上一页</a>
-                        </div><!--第一列-->
-                        <div class=" right aligned column ">
-                            <a href="#" th:href="@{/(page=${page.number}+1)}"  th:unless="${page.last}"  class="ui mini  teal basic button">下一页</a>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-            <!--页面整体右面布局top--->
-            <div class="five wide column" style="opacity: 0.8" id="index1">
-                <div class="ui segments">
-                    <div class="ui secondary segment">
-                        <div class="ui two column grid">
-                            <div class="column">
-                                <i class="idea icon"></i>分类
                             </div>
 
-                            <div class=" right aligned column">
-                                <a href="#" target="_blank"> 详细信息<i class="angle double right icon "></i></a>
-                            </div>
                         </div>
                     </div>
 
-                    <div class="ui teal segment">
-                        <div class="ui  fluid vertical menu" >
-                            <a href="#"  class="item" th:each="type:${types}">
-                                <span th:text="${type.name}">周边</span>
-                                <div class="ui left pointing teal basic label" th:text="${#arrays.length(type.cartoons)}">13</div>
+                    <!---标签--->
+                    <div class="ui segments m-margin-large">
+                        <div class="ui secondary segment">
+                            <div class="ui two column grid">
+                                <div class="column">
+                                    <i class="tags icon"></i>标签
+                                </div>
+
+                                <div class=" right aligned column">
+                                    <a href="#" target="_blank"> 详细信息<i class="angle double right icon "></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ui teal segment">
+
+                            <a href="#" target="_blank" class="ui teal basic left pointing label  m-margin-tb-tiny"
+                                th:each="tag : ${tags}">
+                                <span th:text="${tag.name}">手办</span>
+                                <div class="detail" th:text="${#arrays.length(tag.cartoons)}">23</div>
                             </a>
 
+
+
                         </div>
 
                     </div>
-                </div>
-
-                <!---标签--->
-                <div class="ui segments m-margin-large">
-                    <div class="ui secondary segment">
-                        <div class="ui two column grid">
-                            <div class="column">
-                                <i class="tags icon"></i>标签
-                            </div>
-
-                            <div class=" right aligned column">
-                                <a href="#" target="_blank"> 详细信息<i class="angle double right icon "></i></a>
-                            </div>
-                        </div>
+                    <h4 class="ui horizontal divider header m-margin-large ">Lucky Star!</h4>
+                    <div class="ui centered card">
+                        <img src="../static/images/logo.png" th:src="@{images/logo.png}" alt="" class="uo rounded image"
+                            style="height: 250px;opacity: 0.7">
                     </div>
-                    <div class="ui teal segment">
-
-                        <a href="#" target="_blank" class="ui teal basic left pointing label  m-margin-tb-tiny" th:each="tag : ${tags}">
-                            <span th:text="${tag.name}">手办</span> <div class="detail" th:text="${#arrays.length(tag.cartoons)}">23</div>
-                        </a>
-
-
-
-                    </div>
-
                 </div>
-                <h4 class="ui horizontal divider header m-margin-large ">Lucky Star!</h4>
-                <div class="ui centered card">
-                    <img src="../static/images/logo.png" th:src="@{images/logo.png}" alt="" class="uo rounded image" style="height: 250px;opacity: 0.7">
-                </div>
+
+
             </div>
-
-
         </div>
+
     </div>
 
-</div>
+    <br>
+    <br>
+    <br>
+    <!--底部-->
+    <footer th:replace="_fragments::footer" class="ui inverted vertical segment  m-padded-tb-massive">
+    </footer>
 
-<br>
-<br>
-<br>
-<!--底部-->
-<footer  th:replace="_fragments::footer" class="ui inverted vertical segment  m-padded-tb-massive">
-</footer>
-
-<!--/*/<th:block th:replace="_fragments::script" >/*/-->
-<script src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.js"></script><!--JS-->
-<!--/*/</th:block>/*/-->
+    <!--/*/<th:block th:replace="_fragments::script" >/*/-->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.js"></script><!--JS-->
+    <!--/*/</th:block>/*/-->
 
 
-<script>
-    $('.menu.toggle').click(function () {
-        $('.m-item').toggleClass('m-mobile-hide');
-    });
-
-    $('.ui.dropdown')
-        .dropdown({
-            on: 'hover'
+    <script>
+        $('.menu.toggle').click(function () {
+            $('.m-item').toggleClass('m-mobile-hide');
         });
 
-    $(function (){
-        let arr=['qq','q1','q2'];
-        let i=0;
-        setInterval(function (){
-            i++;
-            $(".qq").addClass(arr[i]);
-            if(i>=3)
-            {
-                i=0;
-                $(".qq").removeClass('q1 q2');
-            }
-        },5000)
-    })
-    //消息提示关闭初始化
-    $('.message .close')
-        .on('click', function () {
-            $(this)
-                .closest('.message')
-                .transition('fade');
-        });
+        $('.ui.dropdown')
+            .dropdown({
+                on: 'hover'
+            });
 
-    function page(obj) {
-        $("[name='page']").val($(obj).data("page"));
-        loaddata();
-    }
-
-
-    $('#clear-btn')
-        .on('click', function() {
-            $('.ui.type.dropdown')
-                .dropdown('clear')
-            ;
+        $(function () {
+            let arr = ['qq', 'q1', 'q2'];
+            let i = 0;
+            setInterval(function () {
+                i++;
+                $(".qq").addClass(arr[i]);
+                if (i >= 3) {
+                    i = 0;
+                    $(".qq").removeClass('q1 q2');
+                }
+            }, 5000)
         })
-    ;
+        //消息提示关闭初始化
+        $('.message .close')
+            .on('click', function () {
+                $(this)
+                    .closest('.message')
+                    .transition('fade');
+            });
 
-    $("#search-btn").click(function () {
-        $("[name='page']").val(0);
-        loaddata();
-    });
+        function page(obj) {
+            $("[name='page']").val($(obj).data("page"));
+            loaddata();
+        }
 
-    function loaddata() {
-        $("#table-container").load(/*[[@{/admin/controller/search}]]*/"/admin/controller/search", {
-            title: $("[name='title']").val(),
-            typeId: $("[name='typeId']").val(),
-            recommend: $("[name='recommend']").prop('checked'),
-            page: $("[name='page']").val()
-        });
-    }
 
-    $(document).ready(function ()
-    {
-        $("#index").slideDown("slow");
-        $("#index1").animate({left:'35px'});
-    })
-</script>
+        // $('#clear-btn')
+        //     .on('click', function() {
+        //         $('.ui.type.dropdown')
+        //             .dropdown('clear')
+        //         ;
+        //     })
+        // ;
+
+        // $("#search-btn").click(function () {
+        //     $("[name='page']").val(0);
+        //     loaddata();
+        // });
+
+        function loaddata() {
+            $("#table-container").load(/*[[@{/admin/controller/search}]]*/"/admin/controller/search", {
+                title: $("[name='title']").val(),
+                typeId: $("[name='typeId']").val(),
+                recommend: $("[name='recommend']").prop('checked'),
+                page: $("[name='page']").val()
+            });
+        }
+
+        $(document).ready(function () {
+            $("#index").slideDown("slow");
+            $("#index1").animate({ left: '35px' });
+        })
+    </script>
 </body>
+
 </html>

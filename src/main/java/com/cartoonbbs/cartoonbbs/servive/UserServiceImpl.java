@@ -14,6 +14,10 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
+
+    public  User findByState(int state){
+        return  userRepository.findByState(state);
+    }
     @Override
     public User checkUse(String username, String password) {
         User user=userRepository.findByUsernameAndPassword(username, Md5Utils.code(password));

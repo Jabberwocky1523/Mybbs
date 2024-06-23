@@ -40,9 +40,9 @@ public class IndexController {
     public String index(@PageableDefault(size = 8,sort = {"updateTime"},direction = Sort.Direction.DESC) Pageable pageable,
                         Model model,HttpSession session) {
         model.addAttribute("page",controllerService.listCartoon(pageable));
-        model.addAttribute("types",typeService.listTypeTop(6));
-        model.addAttribute("tags",tagService.listTagTop(10));
-        model.addAttribute("recommendCartoon",controllerService.listRecommendCartoonTop(8));
+//        model.addAttribute("types",typeService.listTypeTop(6));
+//        model.addAttribute("tags",tagService.listTagTop(10));
+//        model.addAttribute("recommendCartoon",controllerService.listRecommendCartoonTop(8));
         Object a=session.getAttribute("user");
         model.addAttribute("user",a);
         return "index";

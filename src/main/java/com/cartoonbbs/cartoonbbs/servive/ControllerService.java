@@ -21,10 +21,6 @@ public interface ControllerService {
 
     Page<Cartoon> listCartoon(String query,Pageable pageable);
 
-
-
-    List<Cartoon > listRecommendCartoonTop(Integer size);
-
     Map<String,List<Cartoon>> archiveCartoon();
 
     Long countCartoon();

@@ -9,18 +9,12 @@ import com.cartoonbbs.cartoonbbs.vo.CartoonQuery;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.criteria.*;
-import java.sql.Connection;
-import java.sql.Driver;
-import java.sql.DriverManager;
 import java.util.*;
 
 //后端首页逻辑
@@ -81,12 +75,9 @@ public class ControllerImpl implements ControllerService {
 
     @Override
     public Page<Cartoon> listCartoon(Long tagId, Pageable pageable) {
-        return cartoonRepository.findAll(new Specification<Cartoon>() {
-            @Override
-            public Predicate toPredicate(Root<Cartoon> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
-                Join join= root.join("tags");
-                return cb.equal(join.get("id"),tagId);
-            }
+        return cartoonRepository.findAll((Specification<Cartoon>) (root, cq, cb) -> {
+            Join join= root.join("tags");
+            return cb.equal(join.get("id"),tagId);
         },pageable);
     }
 
@@ -95,12 +86,6 @@ public class ControllerImpl implements ControllerService {
         return cartoonRepository.findByQuery(query,pageable);
     }
 
-
-    @Override
-    public List<Cartoon> listRecommendCartoonTop(Integer size) {
-        Pageable pageable= PageRequest.of(0,size, Sort.by(Sort.Direction.DESC, "updateTime"));
-        return cartoonRepository.findTop(pageable);
-    }
 
     @Override
     public Map<String, List<Cartoon>> archiveCartoon() {

@@ -7,9 +7,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-/**
- * Created by limi on 2017/10/14.
- */
 @Entity
 @Table(name = "t_user")
 public class User {

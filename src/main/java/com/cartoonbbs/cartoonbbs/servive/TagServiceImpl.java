@@ -1,4 +1,5 @@
 package com.cartoonbbs.cartoonbbs.servive;
+
 import com.cartoonbbs.cartoonbbs.NotFoundException;
 import com.cartoonbbs.cartoonbbs.dao.TagRepository;
 import com.cartoonbbs.cartoonbbs.po.Tag;
@@ -7,12 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class TagServiceImpl implements  TagService {
@@ -56,8 +56,6 @@ public class TagServiceImpl implements  TagService {
         return tagRepository.save(t);
     }
 
-
-
     @Transactional
     @Override
     public void deleteTag(Long id) {
@@ -71,7 +69,7 @@ public class TagServiceImpl implements  TagService {
 
     @Override
     public List<Tag> listTagTop(Integer size) {
-        Pageable pageable= PageRequest.of(0,size, Sort.by(Sort.Direction.DESC, "cartoons.size"));
+        Pageable pageable= PageRequest.of(0,size);
 
         return tagRepository.findTop(pageable);
     }

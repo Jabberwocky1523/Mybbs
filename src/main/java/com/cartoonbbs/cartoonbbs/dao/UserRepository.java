@@ -12,6 +12,8 @@ import java.util.List;
 public interface UserRepository extends JpaRepository<User,Long> {
     User findByUsernameAndPassword(String username,String password);
 
+    User findByState(int state);
+
     User findByUsername(String username);
     void deleteByUsername(String username);
     @Query("select  c from User c where  c.state=1")

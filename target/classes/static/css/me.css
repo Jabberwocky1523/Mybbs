@@ -3,6 +3,21 @@ body{
     background-attachment: fixed;
     background-size: 2100px;
 }
+.qq{
+    background-image: url(../images/shi1.png);
+}
+.q1
+{
+    background-image: url(../images/ke2.png);
+}
+.q2
+{
+    background-image: url(../images/ke1.png);
+}
+.q3
+{
+    background-image: url(../images/tianshao1.png);
+}
 .login-background{
     background-image: url(../images/mengdie.png);
     background-attachment: fixed;
@@ -46,21 +61,7 @@ div{
     padding: 0;
     margin: 0;
 }
-.qq{
-    background-image: url(../images/shi1.png);
-}
-.q1
-{
-    background-image: url(../images/ke2.png);
-}
-.q2
-{
-    background-image: url(../images/ke1.png);
-}
-.q3
-{
-    background-image: url(../images/tianshao1.png);
-}
+
 #qq
 {
     width: 35%;
@@ -70,14 +71,6 @@ div{
     top:34%;
     left: 50%;
     transform: translate(-50%,-50%);
-}
-input[type=text]
-{
-    color: white;
-}
-input[type=password]
-{
-    color: white;
 }
 #q1{
     margin-top: 50px;
